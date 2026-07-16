@@ -1,0 +1,17 @@
+# Official Tyk sources are cloned FRESH at runtime into vendor/ — never committed.
+# (No Tyk-shipped code lives in this repo; ensure-sources.sh manages this cache.)
+/vendor/
+
+# Secrets / license — never commit.
+**/.env
+*.pem
+*.key
+
+# Local render/scratch + build artifacts (assembled from official sources — not source)
+.render/
+.build/
+dist/
+*.log
+
+# macOS
+.DS_Store

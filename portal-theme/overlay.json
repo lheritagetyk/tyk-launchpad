@@ -1,0 +1,6 @@
+{
+  "_comment": "tyk-launchpad theme overlay manifest. build-theme.sh stamps these onto a copy of the official default theme's theme.json (the portal forbids editing the 'default' theme, so the theme MUST be renamed). Add files under portal-theme/assets/** to override any theme asset by same relative path (e.g. assets/images/dev-portal-logo.svg for the logo).",
+  "name": "customer-brand",
+  "version": "1.0.0",
+  "author": "Your Company <hello@example.com>"
+}
