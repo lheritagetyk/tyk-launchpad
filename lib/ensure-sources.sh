@@ -38,14 +38,18 @@ _remote_sha() { git ls-remote "$1" "refs/heads/$2" 2>/dev/null | cut -f1; }
 _local_sha()  { git -C "$1" rev-parse HEAD 2>/dev/null; }
 
 cmd_ensure() {
-  say "Ensuring official Tyk sources are present (vendor/ — fresh, not committed)"
+  say "Fetching the official Tyk sources into vendor/ (fresh clone, not committed)"
+  local cloned=0
   for s in "${SOURCES[@]}"; do IFS='|' read -r name url ref mode <<<"$s"
     if [ -d "$VENDOR/$name/.git" ]; then
       ok "$name present @ $(_local_sha "$VENDOR/$name" | cut -c1-7)"
     else
-      info "cloning $name (latest, ref=$ref)…"; _clone "$name" "$url" "$ref" "$mode"
+      info "cloning $name (latest, ref=$ref)…"; _clone "$name" "$url" "$ref" "$mode"; cloned=1
     fi
   done
+  say "Sources ready."
+  info "Next: tell the agent what you want, or run ./launch.sh to install."
+  [ "$cloned" = "0" ] && info "(already had everything — run 'check' to look for updates)"
 }
 
 cmd_check() {
