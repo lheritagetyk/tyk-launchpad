@@ -10,10 +10,31 @@ VALUES="$SM_K8S/values.yaml"
 ENV_FILE="$SM_K8S/.env"
 [ -f "$VALUES" ] || die "vendored values.yaml missing at $VALUES (did submodules init?)"
 
-# Official chart deps + versions come straight from the tyk-install README.
-PG_VERSION=12.12.10
-REDIS_VERSION=19.0.2
-CERTMGR_VERSION=v1.17.4
+# Chart dep versions are DERIVED from the tyk-install README at runtime (it's cloned fresh),
+# so we follow upstream automatically instead of pinning stale values. The fallbacks are used
+# only — with a loud warning — if the README format changes and parsing fails (drift signal).
+README="$SM_K8S/README.md"
+chart_version() { # <literal chart anchor> -> the --version value that follows it in the README
+  [ -f "$README" ] || return 0
+  # single awk (no pipe) so an early-exit can't SIGPIPE an upstream stage under pipefail
+  awk -v a="$1" '
+    index($0,a){f=1}
+    f && match($0,/--version[ \t]+[^ \t]+/){
+      s=substr($0,RSTART,RLENGTH); sub(/--version[ \t]+/,"",s); print s; exit
+    }' "$README"
+}
+derive_version() { # <var-name> <anchor> <fallback>  — sets the named var
+  local v; v=$(chart_version "$2")
+  if [ -z "$v" ]; then
+    warn "could not derive $1 from tyk-install README — using fallback $3 (possible upstream drift; check the README)"
+    v="$3"
+  fi
+  printf -v "$1" '%s' "$v"
+}
+derive_version PG_VERSION      "bitnami/postgresql"           "12.12.10"
+derive_version REDIS_VERSION   "bitnamicharts/redis"          "19.0.2"
+derive_version CERTMGR_VERSION "jetstack/charts/cert-manager" "v1.17.4"
+info "chart versions (from tyk-install README): postgres=$PG_VERSION redis=$REDIS_VERSION cert-manager=$CERTMGR_VERSION"
 
 say "Add official Helm repos (local only — does not touch the cluster)"
 helm repo add tyk-helm https://helm.tyk.io/public/helm/charts/ >/dev/null 2>&1 || true
