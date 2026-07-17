@@ -17,6 +17,7 @@ to work?", or just points you at this repo, do this before anything else:
    - **Version an API** — *"add a v2 of the orders API"*
    - **Brand the portal** — *"brand the developer portal with my logo and colors"*
    - **Products & plans** — *"package payments into a product with a Bronze plan"*
+   - **Write a plugin** — *"create a Tyk plugin that adds a correlation-id header"*
    - **Fix what's broken** — *"my Tyk install is unhealthy, heal it"*
    - **Answer / debug** — *"why is my gateway returning 404?"*
 4. Ask which they want, and which cluster/environment they're pointing at.
@@ -63,6 +64,7 @@ The user just talks; you route to the right skill in `.claude/skills/`:
 - `version-apis` — base+child OAS versioning via the Operator
 - `customize-portal-theme` — brand + deploy a portal theme (overlay on the default theme)
 - `build-products-plans` — API products, plans, publish to the portal catalogue (Portal API)
+- `create-plugins` — write/build/deploy a Tyk plugin from the official tyk-plugin-starter
 - `self-heal` — diagnose + repair a broken/unhealthy install (`lib/doctor.sh`)
 - `debug-and-ask` — answer/troubleshoot from official docs + any TykTechnologies repo
 

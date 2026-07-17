@@ -14,6 +14,9 @@ On later runs it checks for newer versions and asks before updating.
 - **Brand the portal** — customize + deploy a developer-portal theme (logo, colors) on top
   of the official default theme.
 - **Products & plans** — package APIs into products/plans and publish to the portal catalogue.
+- **Write plugins** — scaffold, build, and deploy a Tyk gateway plugin from the official
+  `tyk-plugin-starter`.
+- **Self-heal** — diagnose and repair a broken/unhealthy install.
 - **Debug & answer** — troubleshoot and answer Tyk questions grounded in the official docs
   and any TykTechnologies repo.
 

@@ -17,6 +17,7 @@ mkdir -p "$VENDOR"
 SOURCES=(
   "tyk-install|https://github.com/TykTechnologies/tyk-install.git|main|full"
   "portal-default-theme|https://github.com/TykTechnologies/portal-default-theme.git|main|full"
+  "tyk-plugin-starter|https://github.com/TykTechnologies/tyk-plugin-starter.git|main|full"
   "tyk-docs|https://github.com/TykTechnologies/tyk-docs.git|main|sparse"
 )
 
