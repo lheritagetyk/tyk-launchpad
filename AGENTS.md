@@ -65,8 +65,9 @@ the user unless they ask.
 - **Observability** — enable per-API with `lib/scaffold-oas.py --tracing` (OTel detailed
   tracing, `server.detailedTracing.enabled`; needs global OTel on) and/or `--traffic-logs`
   (analytics, `middleware.global.trafficLogs.enabled`).
-- **Brand the portal** — edit `portal-theme/` (overlay), `bash lib/build-theme.sh`, then
-  `bash lib/upload-theme.sh`. Skill: `customize-portal-theme`.
+- **Brand the portal** — `NAME=<theme> DEST=<their-dir> bash lib/new-theme.sh` scaffolds a
+  theme from the official default theme into a dir the user chooses; edit its `--tdp-*` CSS
+  vars + logo; deploy with `THEME_DIR=<dir> bash lib/upload-theme.sh`. Skill: `customize-portal-theme`.
 - **Products & plans** — `python3 lib/portal-payload.py {product|plan|catalogue} …` then
   `bash lib/portal-api.sh POST /…`. Skill: `build-products-plans`.
 - **Write a plugin** — `NAME=<plugin> bash lib/new-plugin.sh` scaffolds from the official

@@ -64,7 +64,7 @@ The user just talks; you route to the right skill in `.claude/skills/`:
 - `author-oas-apis` — create + deploy Tyk OAS APIs via the Operator (default path)
 - `version-apis` — base+child OAS versioning via the Operator
 - `secure-apis-and-keys` — SecurityPolicies + access keys (incl. per-version grants; prevents 403s)
-- `customize-portal-theme` — brand + deploy a portal theme (overlay on the default theme)
+- `customize-portal-theme` — scaffold a portal theme from the default theme, brand + deploy it
 - `build-products-plans` — API products, plans, publish to the portal catalogue (Portal API)
 - `create-plugins` — write/build/deploy a Tyk plugin from the official tyk-plugin-starter
 - `self-heal` — diagnose + repair a broken/unhealthy install (`lib/doctor.sh`)

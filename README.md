@@ -55,7 +55,7 @@ RENDER_ONLY=1 ./launch.sh           # preview the install — touches nothing
 ./launch.sh                         # deploy (k8s self-managed)
 ```
 Each capability is a script under `lib/` (`scaffold-oas.py`, `apply-oas-crd.sh`,
-`set-versioning.py`, `build-theme.sh`, `upload-theme.sh`, `portal-api.sh`, …). See the
+`set-versioning.py`, `new-theme.sh`, `upload-theme.sh`, `portal-api.sh`, …). See the
 matching skill in `.claude/skills/` for how they fit together.
 
 ## Protecting an existing install
