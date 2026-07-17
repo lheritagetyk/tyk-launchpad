@@ -75,8 +75,14 @@ Use `FORCE=1` only if you truly intend to reuse an occupied namespace.
 Built: install (k8s self-managed), author APIs, version APIs, portal theme, products/plans,
 debug/ask. Planned: Docker substrate, Hybrid and standalone-Operator topologies.
 
+## Works with any AI IDE
+Using **Claude Code**? `CLAUDE.md` + the skills in `.claude/skills/` are the richer path.
+Using **Cursor / Copilot / Codex / another LLM**? The root **`AGENTS.md`** is a tool-neutral
+brief that maps every capability to the `lib/` scripts — so the toolkit works the same in any
+agent.
+
 ## Design
-See `CLAUDE.md` for the agent contract and hard rules: never copy Tyk code, stay vanilla
+See `CLAUDE.md` (or `AGENTS.md`) for the agent contract and hard rules: never copy Tyk code, stay vanilla
 (official defaults), protect existing installs, official license + API handling, ground every
 answer in official docs (`vendor/tyk-docs`). Official repos are cloned fresh into `vendor/` at
 runtime (gitignored — nothing Tyk-shipped is committed); `ci/no-vendor-copy.sh` enforces it.
