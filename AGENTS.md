@@ -45,7 +45,11 @@ If the user greets you or asks "what can you do?" / "how do I start?":
 bash lib/ensure-sources.sh          # clone the official sources into vendor/ (ensure)
 bash lib/ensure-sources.sh check    # is anything newer upstream?
 bash lib/ensure-sources.sh update   # pull latest (ask the user first)
+bash lib/check-drift.sh             # verify our scripts' assumptions still exist upstream
 ```
+Run `check-drift` after `update` (or on a schedule): it fails loudly if Tyk renamed/moved a
+field, endpoint, or chart anchor a script depends on — so drift surfaces here, not mid-demo.
+Deploy chart versions are derived from the tyk-install README at runtime (not pinned).
 
 ## Capabilities — drive these scripts
 Each has a detailed playbook in `.claude/skills/<name>/SKILL.md` (readable as plain markdown

@@ -70,9 +70,13 @@ The user just talks; you route to the right skill in `.claude/skills/`:
 - `self-heal` — diagnose + repair a broken/unhealthy install (`lib/doctor.sh`)
 - `debug-and-ask` — answer/troubleshoot from official docs + any TykTechnologies repo
 
-## Keeping official sources fresh
+## Keeping official sources fresh (and catching drift)
 `./launch.sh` runs `lib/ensure-sources.sh ensure` (first-run clone). Periodically run
 `ensure-sources.sh check`; if newer official versions exist, ASK the user before `update`.
+After an update — or if a script emits something Tyk rejects — run `bash lib/check-drift.sh`.
+It asserts every field/endpoint/chart-anchor our scripts assume still exists in the fresh
+sources and fails loudly (naming the dependent script) if Tyk moved one. Deploy chart
+versions are derived from the tyk-install README at runtime, so they never go stale.
 
 ## When something fails
 Diagnose against the **official docs** (`vendor/tyk-docs`), the `vendor/tyk-install`
