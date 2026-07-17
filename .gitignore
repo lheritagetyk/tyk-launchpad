@@ -15,3 +15,6 @@ dist/
 
 # macOS
 .DS_Store
+
+# local session secrets (never commit)
+.secrets/

@@ -31,6 +31,7 @@ def yaml_policy(a):
     for api in a.api:
         lines += [
             f"    - name: {api}          # references a TykOasApiDefinition by k8s name",
+            "      kind: TykOasApiDefinition   # without this the Operator defaults to classic ApiDefinition -> 'not found'",
             f"      namespace: {a.namespace}",
             "      versions:",
             "        - Default",
