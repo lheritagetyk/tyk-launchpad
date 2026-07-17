@@ -15,6 +15,7 @@ to work?", or just points you at this repo, do this before anything else:
    - **Install Tyk** on Kubernetes — *"install Tyk to my cluster"*
    - **Add an API** — *"add an API called payments pointing at https://…"*
    - **Version an API** — *"add a v2 of the orders API"*
+   - **Secure it / make a key** — *"rate-limit orders and give me a test key"*
    - **Brand the portal** — *"brand the developer portal with my logo and colors"*
    - **Products & plans** — *"package payments into a product with a Bronze plan"*
    - **Write a plugin** — *"create a Tyk plugin that adds a correlation-id header"*
@@ -62,6 +63,7 @@ The user just talks; you route to the right skill in `.claude/skills/`:
 - `install-environment` — stand up the full stack (k8s self-managed implemented)
 - `author-oas-apis` — create + deploy Tyk OAS APIs via the Operator (default path)
 - `version-apis` — base+child OAS versioning via the Operator
+- `secure-apis-and-keys` — SecurityPolicies + access keys (incl. per-version grants; prevents 403s)
 - `customize-portal-theme` — brand + deploy a portal theme (overlay on the default theme)
 - `build-products-plans` — API products, plans, publish to the portal catalogue (Portal API)
 - `create-plugins` — write/build/deploy a Tyk plugin from the official tyk-plugin-starter

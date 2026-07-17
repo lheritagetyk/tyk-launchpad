@@ -59,6 +59,12 @@ the user unless they ask.
   `NAME=… OAS_FILE=… bash lib/apply-oas-crd.sh` (RENDER_ONLY-safe). Skill: `author-oas-apis`.
 - **Version an API** — `lib/scaffold-oas.py --internal` for the child, `lib/set-versioning.py`
   to add it to the base, re-apply via `lib/apply-oas-crd.sh`. Skill: `version-apis`.
+- **Secure APIs & issue keys** — `python3 lib/scaffold-policy.py --api <base> --api <child> …`
+  (grant base AND every version child or keys 403), `bash lib/apply-policy.sh` (prints
+  `pol_id`), `POLICY_ID=… bash lib/create-key.sh`. Skill: `secure-apis-and-keys`.
+- **Observability** — enable per-API with `lib/scaffold-oas.py --tracing` (OTel detailed
+  tracing, `server.detailedTracing.enabled`; needs global OTel on) and/or `--traffic-logs`
+  (analytics, `middleware.global.trafficLogs.enabled`).
 - **Brand the portal** — edit `portal-theme/` (overlay), `bash lib/build-theme.sh`, then
   `bash lib/upload-theme.sh`. Skill: `customize-portal-theme`.
 - **Products & plans** — `python3 lib/portal-payload.py {product|plan|catalogue} …` then

@@ -11,6 +11,9 @@ On later runs it checks for newer versions and asks before updating.
   Redis, Postgres, Operator) from the official `tyk-install`.
 - **Author APIs** — scaffold + deploy Tyk OAS APIs via the Tyk Operator (CRDs).
 - **Version APIs** — base/child OAS versioning.
+- **Secure & issue keys** — SecurityPolicies (rate limit/quota) and access keys, including
+  granting a key access to every version (no more 403s).
+- **Observability** — enable per-API analytics and OTel detailed tracing.
 - **Brand the portal** — customize + deploy a developer-portal theme (logo, colors) on top
   of the official default theme.
 - **Products & plans** — package APIs into products/plans and publish to the portal catalogue.

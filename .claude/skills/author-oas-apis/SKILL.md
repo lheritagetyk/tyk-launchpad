@@ -23,8 +23,9 @@ Dashboard API instead. Read `CLAUDE.md` first. Ground everything in the official
    python3 lib/scaffold-oas.py --name "Petstore" --listen /petstore/ \
      --upstream https://petstore.example.com [--auth-token] [--cors] > /tmp/petstore.oas.json
    ```
-   Use `--cors` only if it will be tried from the developer portal (browser). Show the
-   user the scaffold and let them refine paths/middleware before deploying.
+   Use `--cors` only if it will be tried from the developer portal (browser). Add
+   `--tracing` and/or `--traffic-logs` to turn on observability from the start (see below).
+   Show the user the scaffold and let them refine paths/middleware before deploying.
 3. **Preview (safe)** — render the ConfigMap + CRD without touching the cluster:
    ```sh
    NAME=petstore OAS_FILE=/tmp/petstore.oas.json RENDER_ONLY=1 bash lib/apply-oas-crd.sh
@@ -40,6 +41,18 @@ Dashboard API instead. Read `CLAUDE.md` first. Ground everything in the official
 Re-run step 4 with the edited OAS file. The applier uses `kubectl replace` on the
 ConfigMap, which the Operator detects. (Deeper versioning/revisions is the
 `version-apis` skill.)
+
+## Observability (analytics + tracing)
+Both are per-API booleans in the Tyk OAS definition (grounded in
+`vendor/tyk-docs/snippets/x-tyk-gateway.mdx`):
+- **Traffic logs / analytics** — `x-tyk-api-gateway.middleware.global.trafficLogs.enabled`.
+  If absent the API is **not tracked** (classic `do_not_track`). `scaffold-oas.py --traffic-logs`.
+- **Detailed OTel tracing** — `x-tyk-api-gateway.server.detailedTracing.enabled`.
+  `scaffold-oas.py --tracing`. **Prerequisite:** global OpenTelemetry must already be enabled
+  at the gateway (`tyk.conf` / Helm `opentelemetry.enabled=true` + an exporter) — per-API
+  detailedTracing only adds span detail; it does not turn OTel on.
+To enable on an **existing** API, add the same property to its OAS and re-apply via
+`apply-oas-crd.sh` (ConfigMap `replace`).
 
 ## Guardrails (detect → apply the documented fix; never bake in hacks)
 - If a ConfigMap-only edit doesn't sync, confirm the CRD's `configmapRef` is unchanged

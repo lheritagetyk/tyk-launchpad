@@ -59,6 +59,12 @@ from the CRD name, so child links remain valid. Confirm current behavior against
 and `gh search issues --owner TykTechnologies "versioning base"` before acting; on 5.12.0+
 prefer the documented **Reassign the Base** flow instead of delete/recreate.
 
+## Access control for versions (don't skip)
+A version child has its own API Id, so a key/policy that grants only the base **403s on the
+child**. After adding a version, grant access to the base AND the child in one policy — see
+the `secure-apis-and-keys` skill (`lib/scaffold-policy.py --api <base> --api <child>`).
+
 ## Not this skill
-Creating the first (base) API → `author-oas-apis`. Access keys/policies for versions →
+Creating the first (base) API → `author-oas-apis`. Policies + access keys (incl. the
+per-version grant) → `secure-apis-and-keys`. Developer-facing plans/catalogue →
 `build-products-plans`.
