@@ -36,3 +36,6 @@ if [ -n "$DASH_SVC" ]; then
 else warn "no dashboard service found"; fi
 
 say "Verify complete"
+if [ "${NOTREADY:-0}" != "0" ]; then
+  warn "some components aren't ready — diagnose/heal with:  NS=$NS bash lib/doctor.sh   (add HEAL=1 to repair)"
+fi

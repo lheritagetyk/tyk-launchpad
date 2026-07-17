@@ -39,3 +39,25 @@ guard_namespace() {
     [ "$FORCE" = "1" ] || die "namespace '$ns' has Tyk pods but no matching release — refusing. Use FORCE=1 to override."
   fi
 }
+
+# retry <attempts> <sleep_secs> <cmd...> — run cmd until it succeeds or attempts run out.
+# Used by self-healing flows to ride out transient states (DB warming, reconcile lag).
+retry() {
+  local n=$1 s=$2; shift 2
+  local i
+  for i in $(seq 1 "$n"); do
+    "$@" && return 0
+    [ "$i" -lt "$n" ] && sleep "$s"
+  done
+  return 1
+}
+
+# wait_ready <namespace> <selector-or-empty> <timeout> — wait for pods to be Ready.
+wait_ready() {
+  local ns=$1 sel=$2 to=${3:-180}
+  if [ -n "$sel" ]; then
+    kubectl wait --for=condition=ready pod -l "$sel" -n "$ns" --timeout="${to}s" >/dev/null 2>&1
+  else
+    kubectl wait --for=condition=ready pod --all -n "$ns" --timeout="${to}s" >/dev/null 2>&1
+  fi
+}
