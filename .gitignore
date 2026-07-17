@@ -15,3 +15,8 @@ dist/
 
 # macOS
 .DS_Store
+
+# Portal theme: ship templates (*.example) + README; the customer's real overlay is theirs
+/portal-theme/overlay.json
+/portal-theme/brand.css
+/portal-theme/assets/

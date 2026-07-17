@@ -27,10 +27,13 @@ theme comes from `vendor/portal-default-theme` at build time.
    ```
    If it differs from the base theme, check out the matching tag:
    `git -C vendor/portal-default-theme checkout <tag>` (list: `git -C vendor/portal-default-theme tag`).
-2. **Gather brand** — logo file, brand colors, theme name. Edit the overlay:
+2. **Gather brand** — logo file, brand colors, theme name. The overlay ships as templates
+   (`*.example`); seed the working files (`cp overlay.json.example overlay.json`,
+   `cp brand.css.example brand.css` — `build-theme.sh` also does this on first run), then edit:
    - `portal-theme/overlay.json` → `name` (must ≠ `default`), version, author
    - `portal-theme/brand.css` → set the `--tdp-*` variables
    - drop the logo at `portal-theme/assets/images/dev-portal-logo.svg`
+   These working files are gitignored (the customer's branding, not toolkit content).
 3. **Build** — `bash lib/build-theme.sh` → `dist/<name>-theme.zip` (validates 5MB/file).
 4. **Preview (safe)** — `THEME_ZIP=dist/<name>-theme.zip DRY_RUN=1 bash lib/upload-theme.sh`.
 5. **Deploy** — needs the portal admin token and URL:

@@ -16,7 +16,11 @@ BUILD="$LAUNCHPAD_ROOT/.build/theme"
 DIST="$LAUNCHPAD_ROOT/dist"
 
 [ -d "$THEME_SRC" ] || die "base theme missing at $THEME_SRC — run: bash lib/ensure-sources.sh ensure"
-[ -f "$OVERLAY/overlay.json" ] || die "overlay.json missing in $OVERLAY"
+# Seed the working overlay from the shipped templates on first use (the real overlay is
+# gitignored — it's the customer's own branding, not toolkit content).
+[ -f "$OVERLAY/overlay.json" ] || { [ -f "$OVERLAY/overlay.json.example" ] && cp "$OVERLAY/overlay.json.example" "$OVERLAY/overlay.json" && info "seeded overlay.json from template — edit it with your brand"; }
+[ -f "$OVERLAY/brand.css" ]   || { [ -f "$OVERLAY/brand.css.example" ]   && cp "$OVERLAY/brand.css.example"   "$OVERLAY/brand.css"; }
+[ -f "$OVERLAY/overlay.json" ] || die "overlay.json missing in $OVERLAY (and no overlay.json.example to seed from)"
 require python3; require zip
 
 NAME=$(python3 -c "import json;print(json.load(open('$OVERLAY/overlay.json'))['name'])")
